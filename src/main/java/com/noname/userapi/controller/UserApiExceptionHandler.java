@@ -19,7 +19,7 @@ public class UserApiExceptionHandler {
     }
 
     @ExceptionHandler(value = { UserNotFoundException.class})
-    protected ResponseEntity<UserError> handleUserNotFoundException(UserAlreadyExistsException ex) {
+    protected ResponseEntity<UserError> handleUserNotFoundException(UserNotFoundException ex) {
         return new ResponseEntity<>(new UserError().message(ex.getMessage()), HttpStatus.NOT_FOUND);
     }
 

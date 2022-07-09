@@ -12,6 +12,5 @@ public interface UserService {
     void delete(String email) throws UserNotFoundException;
     UserDTO update(String email, UserDTO userDTO) throws UserNotFoundException;
     Optional<UserDTO> getByEmail(String email);
-
-    List<UserDTO> findUsers(Optional<String> name, Optional<String> surname);
+    List<UserDTO> findUsers(String name, String surname);
 }

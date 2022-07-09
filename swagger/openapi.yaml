@@ -49,6 +49,10 @@ paths:
       responses:
         '201':
           description: Successfully created a new user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
         '422':
           description: Invalid request
           content:
@@ -96,6 +100,12 @@ paths:
           required: true
           schema:
             type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
 
       responses:
         '200':
@@ -130,10 +140,6 @@ paths:
       responses:
         '200':
           description: Successfully deleted an user
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
 
         '400':
           description: Invalid request
@@ -166,7 +172,6 @@ components:
         email:
           type: string
           format: email
-
           minLength: 1
         address:
           type: string
