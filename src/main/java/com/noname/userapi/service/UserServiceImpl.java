@@ -5,7 +5,6 @@ import com.noname.userapi.dal.repositories.UserItemRepository;
 import com.noname.userapi.dto.UserDTO;
 import com.noname.userapi.exception.UserAlreadyExistsException;
 import com.noname.userapi.exception.UserNotFoundException;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
