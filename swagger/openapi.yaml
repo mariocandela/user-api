@@ -35,10 +35,8 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/UserError'
+
     post:
       description: Create a new User
       operationId: createUser
@@ -49,17 +47,14 @@ paths:
             schema:
               $ref: '#/components/schemas/User'
       responses:
-        '200':
+        '201':
           description: Successfully created a new user
-        '400':
+        '422':
           description: Invalid request
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/UserError'
 
   /users/{email}:
     get:
@@ -85,19 +80,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/UserError'
         '404':
           description: Not found User
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/UserError'
     put:
       description: Update User
       operationId: updateUser
@@ -121,19 +110,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/UserError'
         '404':
           description: Not found User
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/UserError'
     delete:
       description: Delete User by Key
       operationId: deleteUser
@@ -157,19 +140,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/UserError'
         '404':
           description: Not found User
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+                $ref: '#/components/schemas/UserError'
 components:
   schemas:
     User:
@@ -194,3 +171,10 @@ components:
         address:
           type: string
           minLength: 1
+    UserError:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
