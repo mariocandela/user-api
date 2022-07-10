@@ -1,4 +1,4 @@
-# Beelzebub ![CI](https://github.com/mariocandela/user-api/actions/workflows/CI.yml/badge.svg) ![Docker](https://github.com/mariocandela/user-api/actions/workflows/docker-image.yml/badge.svg)
+# User-API (Spring boot example template) ![CI](https://github.com/mariocandela/user-api/actions/workflows/CI.yml/badge.svg) ![Docker](https://github.com/mariocandela/user-api/actions/workflows/docker-image.yml/badge.svg)
 
 [![Schermata-2022-07-10-alle-13-37-23.png](https://i.postimg.cc/zf80v4HX/Schermata-2022-07-10-alle-13-37-23.png)](https://i.postimg.cc/zf80v4HX/Schermata-2022-07-10-alle-13-37-23.png)
 
@@ -12,6 +12,12 @@ Using [`docker-compose`](https://docs.docker.com/compose/)
 $ docker-compose build
 $ docker-compose up -d
  ```
+ 
+ Unit Test:
+
+```bash
+$ mvn test
+ ```
 
 ## Services
 
@@ -19,12 +25,6 @@ $ docker-compose up -d
 - Prometheus Open Metrics: http://localhost:8080/actuator/prometheus
 - Mongo Express UI: http://localhost:8888/
 - Mongodb: localhost:27017
-
-Unit Test:
-
-```bash
-$ mvn test
- ```
 
 ## How to invoke the Rest APIs?
 
