@@ -12,6 +12,12 @@ Using [`docker-compose`](https://docs.docker.com/compose/)
 $ docker-compose build
 $ docker-compose up -d
  ```
+ 
+ Unit Test:
+
+```bash
+$ mvn test
+ ```
 
 ## Services
 
@@ -20,12 +26,6 @@ User API: http://localhost:8080/
 Mongo Express UI: http://localhost:8888/
 
 Mongodb: localhost:27017
-
-Unit Test:
-
-```bash
-$ mvn test
- ```
 
 ## How to invoke the Rest APIs?
 
