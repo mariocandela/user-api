@@ -15,11 +15,10 @@ $ docker-compose up -d
 
 ## Services
 
-User API: http://localhost:8080/
-
-Mongo Express UI: http://localhost:8888/
-
-Mongodb: localhost:27017
+- User API: http://localhost:8080/
+- Prometheus Open Metrics: http://localhost:8080/actuator/prometheus
+- Mongo Express UI: http://localhost:8888/
+- Mongodb: localhost:27017
 
 Unit Test:
 
@@ -34,6 +33,7 @@ Import the file ```swagger/openapi.yaml``` in Postman
 ## Features
 
 - OpenApi CodeGen integration Spec 3.0
+- Open Metrics Prometheus
 - Docker compose for full local dev environment(Java Spring, Mongo DB, Mongo Express)
 - Java Spring Container Docker with multistage build
 - Example BDD Unit Test
