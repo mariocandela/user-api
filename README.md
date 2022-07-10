@@ -1,4 +1,4 @@
-# Beelzebub ![CI](https://github.com/mariocandela/user-api/actions/workflows/CI.yml/badge.svg) ![Docker](https://github.com/mariocandela/user-api/actions/workflows/docker-image.yml/badge.svg)
+# User-API (Spring boot example template project) ![CI](https://github.com/mariocandela/user-api/actions/workflows/CI.yml/badge.svg) ![Docker](https://github.com/mariocandela/user-api/actions/workflows/docker-image.yml/badge.svg)
 
 [![Schermata-2022-07-10-alle-13-37-23.png](https://i.postimg.cc/zf80v4HX/Schermata-2022-07-10-alle-13-37-23.png)](https://i.postimg.cc/zf80v4HX/Schermata-2022-07-10-alle-13-37-23.png)
 
