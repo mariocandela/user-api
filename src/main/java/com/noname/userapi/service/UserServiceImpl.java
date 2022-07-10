@@ -1,6 +1,6 @@
 package com.noname.userapi.service;
 
-import com.noname.userapi.dal.models.UserItem;
+import com.noname.userapi.dal.documents.UserItem;
 import com.noname.userapi.dal.repositories.UserItemRepository;
 import com.noname.userapi.dto.UserDTO;
 import com.noname.userapi.exception.UserAlreadyExistsException;
@@ -28,6 +28,12 @@ public class UserServiceImpl implements UserService {
 
         UserItem userPersistent = userItemRepository.save(userMapper.mapToUserItem(userDTO));
         return userMapper.mapToUserDTO(userPersistent);
+    }
+
+    @Override
+    public List<UserDTO> create(List<UserDTO> usersDTO) {
+        List<UserItem> usersItem = userItemRepository.saveAll(userMapper.mapToListUserItem(usersDTO));
+        return userMapper.mapToListUserDTO(usersItem);
     }
 
     @Override

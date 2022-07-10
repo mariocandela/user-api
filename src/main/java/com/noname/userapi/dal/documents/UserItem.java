@@ -1,4 +1,4 @@
-package com.noname.userapi.dal.models;
+package com.noname.userapi.dal.documents;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

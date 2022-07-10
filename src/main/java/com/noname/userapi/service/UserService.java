@@ -9,6 +9,7 @@ import java.util.Optional;
 
 public interface UserService {
     UserDTO create(UserDTO userDTO) throws UserAlreadyExistsException;
+    List<UserDTO> create(List<UserDTO> usersDTO);
     void delete(String email) throws UserNotFoundException;
     UserDTO update(String email, UserDTO userDTO) throws UserNotFoundException;
     Optional<UserDTO> getByEmail(String email);
