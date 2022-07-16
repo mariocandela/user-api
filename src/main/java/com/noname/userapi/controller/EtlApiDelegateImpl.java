@@ -1,11 +1,11 @@
 package com.noname.userapi.controller;
 
-import com.noname.userapi.dto.UserDTO;
+import com.noname.userapi.service.User;
 import com.noname.userapi.service.UserMapper;
 import com.noname.userapi.service.UserService;
 import com.opencsv.bean.CsvToBeanBuilder;
 import io.swagger.api.EtlApiDelegate;
-import io.swagger.model.User;
+import io.swagger.model.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,18 +24,18 @@ public class EtlApiDelegateImpl implements EtlApiDelegate {
     private final UserMapper userMapper;
 
     @Override
-    public ResponseEntity<List<User>> importCSVUsers(String body) {
+    public ResponseEntity<List<UserDTO>> importCSVUsers(String body) {
         byte[] decodedBytes = Base64.getDecoder().decode(body);
         String csvUsers = new String(decodedBytes);
 
-        List<UserDTO> usersDTOToImport = new CsvToBeanBuilder<UserDTO>(new StringReader(csvUsers))
-                .withType(UserDTO.class)
+        List<User> usersDTOToImport = new CsvToBeanBuilder<User>(new StringReader(csvUsers))
+                .withType(User.class)
                 .withSeparator(';')
                 .build()
                 .parse();
 
-        List<UserDTO> usersDTOStored = userService.create(usersDTOToImport);
+        List<User> usersStored = userService.create(usersDTOToImport);
 
-        return new ResponseEntity<>(userMapper.mapToListUser(usersDTOStored), HttpStatus.OK);
+        return new ResponseEntity<>(userMapper.mapToListUserDTO(usersStored), HttpStatus.OK);
     }
 }

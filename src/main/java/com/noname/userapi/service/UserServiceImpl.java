@@ -2,12 +2,12 @@ package com.noname.userapi.service;
 
 import com.noname.userapi.dal.documents.UserItem;
 import com.noname.userapi.dal.repositories.UserItemRepository;
-import com.noname.userapi.dto.UserDTO;
 import com.noname.userapi.exception.UserAlreadyExistsException;
 import com.noname.userapi.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,22 +21,25 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     @Override
-    public UserDTO create(UserDTO userDTO) throws UserAlreadyExistsException {
-        if (userItemRepository.existsById(userDTO.getEmail())){
+    @Transactional
+    public User create(User user) throws UserAlreadyExistsException {
+        if (userItemRepository.existsById(user.getEmail())){
             throw new UserAlreadyExistsException();
         }
 
-        UserItem userPersistent = userItemRepository.save(userMapper.mapToUserItem(userDTO));
-        return userMapper.mapToUserDTO(userPersistent);
+        UserItem userPersistent = userItemRepository.save(userMapper.mapToUserItem(user));
+        return userMapper.mapToUser(userPersistent);
     }
 
     @Override
-    public List<UserDTO> create(List<UserDTO> usersDTO) {
-        List<UserItem> usersItem = userItemRepository.saveAll(userMapper.mapToListUserItem(usersDTO));
-        return userMapper.mapToListUserDTO(usersItem);
+    @Transactional
+    public List<User> create(List<User> users) {
+        List<UserItem> usersItem = userItemRepository.saveAll(userMapper.mapToListUserItem(users));
+        return userMapper.listUserItemMapToListUser(usersItem);
     }
 
     @Override
+    @Transactional
     public void delete(String email) throws UserNotFoundException {
         if (!userItemRepository.existsById(email)){
             throw new UserNotFoundException();
@@ -45,34 +48,35 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO update(String email, UserDTO userDTO) throws UserNotFoundException {
+    @Transactional
+    public User update(String email, User user) throws UserNotFoundException {
         UserItem userItem = userItemRepository.findById(email).orElseThrow(UserNotFoundException::new);
-        if (!userDTO.getEmail().equals(userItem.getEmail())) {
+        if (!user.getEmail().equals(userItem.getEmail())) {
             userItemRepository.deleteById(email);
         }
-        userMapper.update(userDTO, userItem);
+        userMapper.update(user, userItem);
         UserItem userItemUpdated = userItemRepository.save(userItem);
-        return userMapper.mapToUserDTO(userItemUpdated);
+        return userMapper.mapToUser(userItemUpdated);
     }
 
     @Override
-    public Optional<UserDTO> getByEmail(String email) {
+    public Optional<User> getByEmail(String email) {
         Optional<UserItem> userItem = userItemRepository.findById(email);
 
         if (userItem.isEmpty()) {
             return Optional.empty();
         }
 
-        return Optional.of(userMapper.mapToUserDTO(userItem.get()));
+        return Optional.of(userMapper.mapToUser(userItem.get()));
     }
 
     @Override
-    public List<UserDTO> findUsers(String name, String surname) {
+    public List<User> findUsers(String name, String surname) {
         UserItem userItem = new UserItem();
 
         userItem.setName(name);
         userItem.setSurname(surname);
 
-        return userMapper.mapToListUserDTO(userItemRepository.findAll(Example.of(userItem)));
+        return userMapper.listUserItemMapToListUser(userItemRepository.findAll(Example.of(userItem)));
     }
 }

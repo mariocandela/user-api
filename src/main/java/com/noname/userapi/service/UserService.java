@@ -1,6 +1,5 @@
 package com.noname.userapi.service;
 
-import com.noname.userapi.dto.UserDTO;
 import com.noname.userapi.exception.UserAlreadyExistsException;
 import com.noname.userapi.exception.UserNotFoundException;
 
@@ -8,10 +7,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
-    UserDTO create(UserDTO userDTO) throws UserAlreadyExistsException;
-    List<UserDTO> create(List<UserDTO> usersDTO);
+    User create(User user) throws UserAlreadyExistsException;
+    List<User> create(List<User> users);
     void delete(String email) throws UserNotFoundException;
-    UserDTO update(String email, UserDTO userDTO) throws UserNotFoundException;
-    Optional<UserDTO> getByEmail(String email);
-    List<UserDTO> findUsers(String name, String surname);
+    User update(String email, User user) throws UserNotFoundException;
+    Optional<User> getByEmail(String email);
+    List<User> findUsers(String name, String surname);
 }

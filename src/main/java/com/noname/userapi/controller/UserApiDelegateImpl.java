@@ -1,11 +1,11 @@
 package com.noname.userapi.controller;
 
-import com.noname.userapi.dto.UserDTO;
+import com.noname.userapi.service.User;
 import com.noname.userapi.exception.UserNotFoundException;
 import com.noname.userapi.service.UserMapper;
 import com.noname.userapi.service.UserService;
 import io.swagger.api.UsersApiDelegate;
-import io.swagger.model.User;
+import io.swagger.model.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +20,10 @@ public class UserApiDelegateImpl implements UsersApiDelegate {
     private final UserMapper userMapper;
 
     @Override
-    public ResponseEntity<User> createUser(User body) {
-        UserDTO userDTOInput = userMapper.mapToUserDTO(body);
-        UserDTO userDTOStored = userService.create(userDTOInput);
-        return new ResponseEntity<>(userMapper.mapToUser(userDTOStored), HttpStatus.CREATED);
+    public ResponseEntity<UserDTO> createUser(UserDTO body) {
+        User userInput = userMapper.mapToUser(body);
+        User userStored = userService.create(userInput);
+        return new ResponseEntity<>(userMapper.mapToUserDTO(userStored), HttpStatus.CREATED);
     }
 
     @Override
@@ -32,21 +32,21 @@ public class UserApiDelegateImpl implements UsersApiDelegate {
         return new ResponseEntity<>(HttpStatus.OK);
     }
     @Override
-    public ResponseEntity<List<User>> findUser(String name, String surname) {
-        List<UserDTO> usersDTO = userService.findUsers(name, surname);
-        return new ResponseEntity<>(userMapper.mapToListUser(usersDTO), HttpStatus.OK);
+    public ResponseEntity<List<UserDTO>> findUser(String name, String surname) {
+        List<User> usersDTO = userService.findUsers(name, surname);
+        return new ResponseEntity<>(userMapper.mapToListUserDTO(usersDTO), HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<User> getUser(String  email) {
-        UserDTO userDTO = userService.getByEmail(email).orElseThrow(UserNotFoundException::new);
-        return new ResponseEntity<>(userMapper.mapToUser(userDTO), HttpStatus.OK);
+    public ResponseEntity<UserDTO> getUser(String  email) {
+        User user = userService.getByEmail(email).orElseThrow(UserNotFoundException::new);
+        return new ResponseEntity<>(userMapper.mapToUserDTO(user), HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<User> updateUser(String email, User body) {
-        UserDTO userDTO = userService.update(email, userMapper.mapToUserDTO(body));
-        return new ResponseEntity<>(userMapper.mapToUser(userDTO), HttpStatus.OK);
+    public ResponseEntity<UserDTO> updateUser(String email, UserDTO body) {
+        User user = userService.update(email, userMapper.mapToUser(body));
+        return new ResponseEntity<>(userMapper.mapToUserDTO(user), HttpStatus.OK);
     }
 }
 

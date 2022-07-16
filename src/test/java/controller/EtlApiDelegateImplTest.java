@@ -1,14 +1,10 @@
 package controller;
 
 import com.noname.userapi.controller.EtlApiDelegateImpl;
-import com.noname.userapi.dal.documents.UserItem;
-import com.noname.userapi.dto.UserDTO;
-import com.noname.userapi.exception.UserAlreadyExistsException;
+import com.noname.userapi.service.User;
 import com.noname.userapi.service.UserMapperImpl;
 import com.noname.userapi.service.UserService;
-import com.noname.userapi.service.UserServiceImpl;
-import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
-import io.swagger.model.User;
+import io.swagger.model.UserDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -61,7 +57,7 @@ public class EtlApiDelegateImplTest {
         given(userService.create(anyList())).willReturn(List.of());
 
         // when
-        ResponseEntity<List<User>> listResponseEntityUsers = etlApiDelegate.importCSVUsers(Base64.getEncoder().encodeToString(csvUsers.getBytes()));
+        ResponseEntity<List<UserDTO>> listResponseEntityUsers = etlApiDelegate.importCSVUsers(Base64.getEncoder().encodeToString(csvUsers.getBytes()));
 
         // then
         assertThat(listResponseEntityUsers).isNotNull();

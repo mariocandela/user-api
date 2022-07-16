@@ -2,7 +2,6 @@ package com.noname.userapi.service;
 
 import com.noname.userapi.dal.documents.UserItem;
 import com.noname.userapi.dal.repositories.UserItemRepository;
-import com.noname.userapi.dto.UserDTO;
 import com.noname.userapi.exception.UserAlreadyExistsException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,45 +26,45 @@ class UserServiceTest {
     @InjectMocks
     private UserServiceImpl userService;
 
-    private UserDTO userDTO;
+    private User user;
 
     private UserItem userItem;
 
     @BeforeEach
     public void setup(){
         userService = new UserServiceImpl(userItemRepository, new UserMapperImpl());
-        userDTO = new UserDTO("test@gmail.com", "mario", "rossi", "Via dei test");
+        user = new User("test@gmail.com", "mario", "rossi", "Via dei test");
         userItem = new UserItem("test@gmail.com", "mario", "rossi", "Via dei test");
     }
 
     @Test
     void givenUserDTOObject_whenCreateUserDTO_thenReturnUserDTOObject(){
         // given
-        given(userItemRepository.existsById(userDTO.getEmail()))
+        given(userItemRepository.existsById(user.getEmail()))
                 .willReturn(false);
 
         given(userItemRepository.save(userItem)).willReturn(userItem);
 
         // when
-        UserDTO savedUserDTO = userService.create(userDTO);
+        User savedUser = userService.create(user);
 
         // then
-        assertThat(savedUserDTO).isNotNull();
-        assertThat(savedUserDTO.getEmail()).isEqualTo(userItem.getEmail());
-        assertThat(savedUserDTO.getAddress()).isEqualTo(userItem.getAddress());
-        assertThat(savedUserDTO.getSurname()).isEqualTo(userItem.getSurname());
-        assertThat(savedUserDTO.getName()).isEqualTo(userItem.getName());
+        assertThat(savedUser).isNotNull();
+        assertThat(savedUser.getEmail()).isEqualTo(userItem.getEmail());
+        assertThat(savedUser.getAddress()).isEqualTo(userItem.getAddress());
+        assertThat(savedUser.getSurname()).isEqualTo(userItem.getSurname());
+        assertThat(savedUser.getName()).isEqualTo(userItem.getName());
     }
 
     @Test
     void givenUserDTOObject_whenCreateUserDTO_thenThrowUserAlreadyExistsException(){
         // given
-        given(userItemRepository.existsById(userDTO.getEmail()))
+        given(userItemRepository.existsById(user.getEmail()))
                 .willReturn(true);
 
         // when
         assertThrows(UserAlreadyExistsException.class, () ->
-            userService.create(userDTO)
+            userService.create(user)
         );
 
         // then

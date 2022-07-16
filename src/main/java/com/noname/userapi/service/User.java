@@ -1,4 +1,4 @@
-package com.noname.userapi.dto;
+package com.noname.userapi.service;
 
 import com.opencsv.bean.CsvBindByName;
 import lombok.AllArgsConstructor;
@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class UserDTO {
+public class User {
 
     @CsvBindByName(column = "email", required = true)
     private String email;
