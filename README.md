@@ -2,7 +2,7 @@
 
 [![Schermata-2022-07-10-alle-13-37-23.png](https://i.postimg.cc/zf80v4HX/Schermata-2022-07-10-alle-13-37-23.png)](https://i.postimg.cc/zf80v4HX/Schermata-2022-07-10-alle-13-37-23.png)
 
-Example Template: Java Spring, OpenAPI, MongoDB, Docker, Full local dev environment 🚀
+Example Template: Java Spring, OpenAPI, MongoDB, Docker, Full local dev environment, Helm chart 🚀
 
 ## Quick Start
 
@@ -38,6 +38,7 @@ Import the file ```swagger/openapi.yaml``` in Postman
 - Java Spring Container Docker with multistage build
 - Example BDD Unit Test
 - Continuous Integration Pipeline (Build Docker Image/Build/Unit Test on new Pull Request) on Github Actions
+- Helm chart, Kubernetes deploy
 
 ### Example Open API User
 

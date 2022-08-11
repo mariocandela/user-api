@@ -1,0 +1,13 @@
+replicaCount: 1
+
+namespace: user-api
+
+image:
+  repository: m4r10/user-api
+  pullPolicy: Always
+  tag: "latest"
+
+service:
+  port: 8080
+  targetPort: 8080
+

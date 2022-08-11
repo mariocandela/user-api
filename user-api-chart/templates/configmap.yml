@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: user-api-configmap
+  namespace: {{.Values.namespace}}
+data:
+  database_url: mongodb://admin:admin@mongodb/userdb?authSource=admin
