@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-api-deployment
+  namespace: {{.Values.namespace}}
+  labels:
+    app: user-api
+spec:
+  replicas: {{.Values.replicaCount}}
+  selector:
+    matchLabels:
+      app: user-api
+  template:
+    metadata:
+      labels:
+        app: user-api
+    spec:
+      containers:
+        - name: user-api
+          image: {{.Values.image.repository}}{{.Values.image.tag}}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: {{.Values.service.port}}
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: user-api-configmap
+                  key: database_url
+            - name: DATABASE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: user-api-secret
+                  key: database-username
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: user-api-secret
+                  key: database-password
